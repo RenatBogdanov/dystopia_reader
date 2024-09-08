@@ -7,8 +7,8 @@ import sys
 def main():
     # Проверка наличия аргумента командной строки
     if len(sys.argv) < 2:
-        print("Ошибка: Необходимо указать URL статьи в качестве аргумента.")
-        return
+        # print("Ошибка: Необходимо указать URL статьи в качестве аргумента.")  # Убрали вывод
+        return  # Просто завершаем выполнение программы
 
     # URL веб-страницы (из аргумента командной строки)
     url = sys.argv[1] 
@@ -50,12 +50,12 @@ def main():
     if related_section:
         post_items = related_section.find_all('div', class_='post__item')
         for post in post_items:
-            post_title = post.find('div', class_='post__title').text.strip() if post.find('div', class_='post__title') else 'Заголовок не найден'
+            post_title = post.find('div', class_='post__title').text.strip() if post.find('div', class_='post__title') else 'Заголовок не найден'  # Убрали вывод
             post_author_link = post.find('div', class_='post__author').find('a')
-            post_author = post_author_link.text.strip() if post_author_link else 'Автор не найден'
-            post_date = post.find('div', class_='post__category-date').text.strip() if post.find('div', class_='post__category-date') else 'Дата не найдена'
+            post_author = post_author_link.text.strip() if post_author_link else 'Автор не найден'  # Убрали вывод
+            post_date = post.find('div', class_='post__category-date').text.strip() if post.find('div', class_='post__category-date') else 'Дата не найдена'  # Убрали вывод
             post_image_url = post.find('img')['src'] if post.find('img') else None
-            post_link = post.find('a', class_='post__link')['href'] if post.find('a', class_='post__link') else 'Ссылка не найдена'
+            post_link = post.find('a', class_='post__link')['href'] if post.find('a', class_='post__link') else 'Ссылка не найдена'  # Убрали вывод
 
             # Загрузка и сохранение изображения для каждой похожей записи
             if post_image_url:
@@ -86,12 +86,7 @@ def main():
     with open(json_file_path, 'w', encoding='utf-8') as json_file:
         json.dump(data_to_save, json_file, ensure_ascii=False, indent=4)
 
-    # 5. Вывод результата в консоль
-    print("Содержимое JSON:")
-    print(json.dumps(data_to_save, ensure_ascii=False, indent=4))
-
-    # Вывод результатов (опционально)
-    print(f"Данные о статье сохранены в папке: {folder_name}")
+    # 5. Убрали вывод о завершении работы
 
 if __name__ == "__main__":
     main()
