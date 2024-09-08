@@ -13,10 +13,15 @@ def main():
     # URL веб-страницы (из аргумента командной строки)
     url = sys.argv[1] 
 
-    # Получение имени папки из URL
-    folder_name = url.split('/')[-1]  # извлечение последнего сегмента URL
+    # Создание папки Data, если её нет
+    data_folder = "Data"
+    if not os.path.exists(data_folder):
+        os.makedirs(data_folder)
+
+    # Получение имени папки для статьи из URL
+    folder_name = os.path.join(data_folder, url.split('/')[-1])  # извлечение последнего сегмента URL и добавление к папке Data
     if not os.path.exists(folder_name):
-        os.makedirs(folder_name)  # создание папки, если её нет
+        os.makedirs(folder_name)  # создание папки для статьи, если её нет
 
     # Получение HTML-кода страницы
     response = requests.get(url)
